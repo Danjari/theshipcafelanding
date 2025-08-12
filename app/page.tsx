@@ -6,6 +6,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
+import Image from "next/image"
 
 export default function ShipCafePage() {
   const [email, setEmail] = useState("")
@@ -21,7 +22,7 @@ export default function ShipCafePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#3B2F2F] text-[#F3E9DD] overflow-x-hidden">
+    <div className="min-h-screen bg-[#fad6a1] text-[#2D1810] overflow-x-hidden">
       {/* Background Pattern */}
       <div className="fixed inset-0 opacity-10 pointer-events-none">
         <div
@@ -61,7 +62,7 @@ export default function ShipCafePage() {
               </div>
             </div>
 
-            <p className="text-xl md:text-2xl text-[#F3E9DD]/80 max-w-2xl">
+            <p className="text-xl md:text-2xl text-[#2D1810]/80 max-w-2xl">
               The co-work café for builders — join live rooms, meet makers, and ship your dream project.
             </p>
 
@@ -77,40 +78,8 @@ export default function ShipCafePage() {
           {/* Right Side - Animated Coffee Cup */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
-              {/* Coffee Cup */}
-              <div className="w-64 h-64 md:w-80 md:h-80 relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#8B4513] to-[#5D2F1A] rounded-full shadow-2xl" />
-                <div className="absolute top-4 left-4 right-4 bottom-16 bg-gradient-to-b from-[#3E2723] to-[#1B0E0A] rounded-full" />
-                <div className="absolute top-8 left-8 right-8 bottom-20 bg-gradient-to-b from-[#6F4E37] to-[#3E2723] rounded-full" />
-
-                {/* Handle */}
-                <div className="absolute right-2 top-1/2 transform -translate-y-1/2 w-12 h-16 border-4 border-[#8B4513] rounded-full" />
-
-                {/* Saucer */}
-                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-72 md:w-96 h-8 bg-gradient-to-b from-[#8B4513] to-[#5D2F1A] rounded-full shadow-lg" />
-              </div>
-
-              {/* Animated Steam with Rocket */}
-              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                {/* Steam Lines */}
-                {[...Array(5)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-1 bg-gradient-to-t from-transparent via-[#F3E9DD]/30 to-transparent rounded-full animate-pulse"
-                    style={{
-                      height: `${60 + i * 10}px`,
-                      left: `${i * 8 - 16}px`,
-                      animationDelay: `${i * 0.5}s`,
-                      animationDuration: "3s",
-                    }}
-                  />
-                ))}
-
-                {/* Rocket */}
-                <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 text-4xl animate-bounce">🚀</div>
-
-                {/* Neon Trail */}
-                <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-[#00FFE0] to-transparent opacity-60 animate-pulse" />
+              <div className="w-full h-full">
+                <Image src="/kiwi.png" alt="Kiwi" className="w-full h-full object-contain" width={500} height={500} />
               </div>
             </div>
           </div>
@@ -120,7 +89,7 @@ export default function ShipCafePage() {
       {/* The Experience Section */}
       <section className="py-20 px-4 lg:px-8 relative">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-[#F3E9DD]">The Experience</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-[#2D1810]">The Experience</h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
@@ -148,8 +117,8 @@ export default function ShipCafePage() {
                 className={`p-8 bg-gradient-to-br ${item.gradient} border-[#4A3A3A] hover:border-[#00FFE0]/50 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,224,0.2)] cursor-pointer`}
               >
                 <div className="text-6xl mb-4 text-center">{item.icon}</div>
-                <h3 className="text-2xl font-bold mb-4 text-[#F3E9DD] text-center">{item.title}</h3>
-                <p className="text-[#F3E9DD]/80 text-center leading-relaxed">{item.description}</p>
+                <h3 className="text-2xl font-bold mb-4 text-[#2D1810] text-center">{item.title}</h3>
+                <p className="text-[#2D1810]/80 text-center leading-relaxed">{item.description}</p>
               </Card>
             ))}
           </div>
@@ -159,7 +128,7 @@ export default function ShipCafePage() {
       {/* Live Energy Feed Mockup */}
       <section className="py-16 px-4 lg:px-8 bg-[#2A1F1F]/50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 text-[#F3E9DD]">Live from The Ship 🚢</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#2D1810]">Live from The Ship 🚢</h2>
 
           <div className="overflow-hidden">
             <div className="flex animate-scroll space-x-6">
@@ -188,7 +157,7 @@ export default function ShipCafePage() {
       {/* Waitlist Signup */}
       <section id="waitlist" className="py-20 px-4 lg:px-8">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8 text-[#F3E9DD]">Ready to Ship?</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-8 text-[#2D1810]">Ready to Ship?</h2>
 
           {!isSubmitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -258,7 +227,7 @@ export default function ShipCafePage() {
           <div className="mb-8">
             <div className="inline-flex items-center space-x-2 text-3xl">
               <span>☕</span>
-              <span className="font-bold text-[#F3E9DD]">The Ship Café</span>
+              <span className="font-bold text-[#2D1810]">The Ship Café</span>
               <span>🚀</span>
             </div>
           </div>
@@ -275,7 +244,7 @@ export default function ShipCafePage() {
             ))}
           </div>
 
-          <p className="text-[#F3E9DD]/60">Brewed with ☕ & 🚀 by The Ship Café</p>
+          <p className="text-[#2D1810]/60">Brewed with ☕ & 🚀 by The Ship Café</p>
         </div>
       </footer>
     </div>
