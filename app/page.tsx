@@ -73,7 +73,7 @@ export default function ShipCafePage() {
         status: "error",
         message: data?.message || "Something went wrong. Please try again.",
       })
-    } catch (err) {
+    } catch {
       dispatch({ type: "status", status: "error", message: "Network issue. Please try again." })
     }
   }
@@ -122,8 +122,7 @@ export default function ShipCafePage() {
               priority
               sizes="(min-width:1024px) 500px, 60vw"
               className="h-auto w-auto object-contain"
-              placeholder="blur"
-              blurDataURL="data:image/gif;base64,R0lGODlhAQABAAAAACw=" /* replace with real blur */
+            
             />
           </div>
         </div>
