@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import Image from "next/image"
+import Footer from "@/components/ui/footer"
+
+
 
 export default function ShipCafePage() {
   const [email, setEmail] = useState("")
@@ -14,11 +17,28 @@ export default function ShipCafePage() {
   const [handle, setHandle] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+      const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitted(true)
-    // Here you would typically send the data to your backend
-    console.log({ name, email, handle })
+    
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, handle }),
+      })
+      
+      const data = await response.json()
+      
+      if (data.success) {
+        setIsSubmitted(true)
+      } else {
+        console.error('Failed to submit:', data.message)
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+    }
   }
 
   return (
@@ -200,7 +220,7 @@ export default function ShipCafePage() {
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-dashed border-[#3B2F2F]">
-                  <p className="text-sm text-[#3B2F2F]/70 mb-4">Early members get Founder's Table perks.</p>
+                  <p className="text-sm text-[#3B2F2F]/70 mb-4">Early members get Founder&apos;s Table perks.</p>
                   <Button
                     type="submit"
                     className="w-full bg-[#FF6B6B] hover:bg-[#FF5252] text-white text-lg py-3 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(255,107,107,0.5)] transition-all duration-300"
@@ -211,42 +231,19 @@ export default function ShipCafePage() {
               </div>
             </form>
           ) : (
-            <div className="bg-[#00FFE0]/10 border border-[#00FFE0]/30 rounded-lg p-8">
-              <div className="text-6xl mb-4">🎉</div>
-              <h3 className="text-2xl font-bold text-[#00FFE0] mb-2">Welcome to The Ship!</h3>
-              <p className="text-[#F3E9DD]/80">You're on the waitlist. We'll send you an invite soon!</p>
-            </div>
+            <Card className="p-8 bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 shadow-xl">
+              <div className="text-center">
+                <div className="text-6xl mb-4">🎉</div>
+                <h3 className="text-2xl font-bold text-green-800 mb-2">Welcome to The Ship!</h3>
+                <p className="text-green-600">You&apos;re on the waitlist. We&apos;ll send you an invite soon!</p>
+              </div>
+            </Card>
           )}
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-4 lg:px-8 border-t border-[#4A3A3A]">
-        <div className="max-w-6xl mx-auto text-center">
-          {/* Logo */}
-          <div className="mb-8">
-            <div className="inline-flex items-center space-x-2 text-3xl">
-              <span>☕</span>
-              <span className="font-bold text-[#2D1810]">The Ship Café</span>
-              <span>🚀</span>
-            </div>
-          </div>
+      <Footer />
 
-          {/* Social Icons */}
-          <div className="flex justify-center space-x-6 mb-8">
-            {["𝕏", "⚡", "📷"].map((icon, index) => (
-              <div
-                key={index}
-                className="w-12 h-12 bg-[#00FFE0]/10 border border-[#00FFE0]/30 rounded-full flex items-center justify-center text-[#00FFE0] hover:bg-[#00FFE0]/20 hover:shadow-[0_0_15px_rgba(0,255,224,0.3)] transition-all duration-300 cursor-pointer"
-              >
-                {icon}
-              </div>
-            ))}
-          </div>
-
-          <p className="text-[#2D1810]/60">Brewed with ☕ & 🚀 by The Ship Café</p>
-        </div>
-      </footer>
-    </div>
+         </div>
   )
 }

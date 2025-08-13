@@ -11,15 +11,12 @@ export async function POST(request: Request) {
     const res = await request.json()
 
     // Destructure the required fields from the request body
-    const { email, name, role } = res
+    const { email, name, handle } = res
     // Validate that email and name are provided
     if (!email || !name) {
       return Response.json({ success: false, message: "Missing required fields" })
     }
 
-    // Split the name into firstName and lastName
-    const [firstName, ...rest] = name.trim().split(" ")
-    const lastName = rest.join(" ") || ""
 
     // Check if a contact with the given email already exists in Loops
     const existing = await loops.findContact({ email })
@@ -29,9 +26,8 @@ export async function POST(request: Request) {
 
     // Update or create the contact in Loops with the provided details
     const resp = await loops.updateContact(email, {
-      firstName,
-      lastName,
-      role,
+      name,
+      handle,
     })
 
     // Respond with the success status from Loops
