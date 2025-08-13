@@ -16,9 +16,13 @@ export default function ShipCafePage() {
   const [name, setName] = useState("")
   const [handle, setHandle] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isExistingUser, setIsExistingUser] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
       const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsLoading(true)
+    setIsExistingUser(false)
     
     try {
       const response = await fetch('/api/waitlist', {
@@ -33,11 +37,17 @@ export default function ShipCafePage() {
       
       if (data.success) {
         setIsSubmitted(true)
+        setIsExistingUser(false)
+      } else if (data.message === "User already exists") {
+        setIsExistingUser(true)
+        setIsSubmitted(false)
       } else {
         console.error('Failed to submit:', data.message)
       }
     } catch (error) {
       console.error('Error submitting form:', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -153,14 +163,14 @@ export default function ShipCafePage() {
           <div className="overflow-hidden">
             <div className="flex animate-scroll space-x-6">
               {[
-                "@alex shipped a new feature in Pod 3 🚀",
-                "@mia pushed to GitHub: /login flow done ✅",
+                "@alex shipped a new feature in Pod 3 ",
+                "@mia pushed to GitHub: /login flow done ",
                 "@jay joined The Ship Café ☕",
                 "@sarah completed her MVP in 2 hours ⚡",
-                "@mike got 100 users on his side project 🎉",
-                "@luna launched her startup idea 🌟",
-                "@alex shipped a new feature in Pod 3 🚀",
-                "@mia pushed to GitHub: /login flow done ✅",
+                "@mikebolles got 100 users on his side project ",
+                "@luna launched her startup idea ",
+                "@moudjaonline shipped a new feature in Pod 3 ",
+                "@mia pushed to GitHub: /login flow done ",
               ].map((update, index) => (
                 <div
                   key={index}
@@ -179,7 +189,7 @@ export default function ShipCafePage() {
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-8 text-[#2D1810]">Ready to Ship?</h2>
 
-          {!isSubmitted ? (
+          {!isSubmitted && !isExistingUser ? (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="bg-[#F3E9DD] p-8 rounded-lg shadow-2xl transform rotate-1">
                 <div className="space-y-4 text-left">
@@ -223,19 +233,35 @@ export default function ShipCafePage() {
                   <p className="text-sm text-[#3B2F2F]/70 mb-4">Early members get Founder&apos;s Table perks.</p>
                   <Button
                     type="submit"
-                    className="w-full bg-[#FF6B6B] hover:bg-[#FF5252] text-white text-lg py-3 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(255,107,107,0.5)] transition-all duration-300"
+                    disabled={isLoading}
+                    className="w-full bg-[#FF6B6B] hover:bg-[#FF5252] text-white text-lg py-3 rounded-full shadow-lg hover:shadow-[0_0_20px_rgba(255,107,107,0.5)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Reserve My Spot ☕
+                    {isLoading ? (
+                      <div className="flex items-center justify-center space-x-2">
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <span>Reserving...</span>
+                      </div>
+                    ) : (
+                      "Reserve My Spot ☕"
+                    )}
                   </Button>
                 </div>
               </div>
             </form>
-          ) : (
-            <Card className="p-8 bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 shadow-xl">
+                      ) : isExistingUser ? (
+            <Card className="p-8 bg-gradient-to-br from-[#fad6a1]/20 to-[#fad6a1]/10 border-[#2D1810]/20 shadow-xl">
+              <div className="text-center">
+                <div className="text-6xl mb-4">👋</div>
+                <h3 className="text-2xl font-bold text-[#2D1810] mb-2">Welcome Back!</h3>
+                <p className="text-[#2D1810]/80">You&apos;re already on our waitlist. We&apos;ll reach out soon!</p>
+              </div>
+            </Card>
+            ) : (
+            <Card className="p-8 bg-gradient-to-br from-[#fad6a1]/20 to-[#fad6a1]/10 border-[#2D1810]/20 shadow-xl">
               <div className="text-center">
                 <div className="text-6xl mb-4">🎉</div>
-                <h3 className="text-2xl font-bold text-green-800 mb-2">Welcome to The Ship!</h3>
-                <p className="text-green-600">You&apos;re on the waitlist. We&apos;ll send you an invite soon!</p>
+                <h3 className="text-2xl font-bold text-[#2D1810] mb-2">Welcome to The Ship!</h3>
+                <p className="text-[#2D1810]/80">You&apos;re on the waitlist. We&apos;ll send you an invite soon!</p>
               </div>
             </Card>
           )}
