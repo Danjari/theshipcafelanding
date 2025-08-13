@@ -216,15 +216,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Get in Touch
 
-- **Join the waitlist**: [your-domain.com](https://your-domain.com)
+- **Join the waitlist**: [theshipcafe.com](https://theshipcafe.com)
 - **Follow us**: [@theshipcafe](https://twitter.com/theshipcafe)
-- **Email**: hello@theshipcafe.com
+- **Email**: themoudjahidmouss@gmail.com
 - **Issues**: Create an issue in this repository for technical questions
 
 ## 🚀 Roadmap
 
 - [ ] Launch beta version
-- [ ] Mobile app development
 - [ ] Advanced matching algorithms
 - [ ] Integration with popular dev tools
 - [ ] Community events and meetups
