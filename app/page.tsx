@@ -55,19 +55,20 @@ export default function ShipCafePage() {
         body: JSON.stringify({ name: state.name, email: state.email, handle: state.handle }),
       })
 
-      // API convention: 201 created, 409 conflict
-      if (res.status === 201) {
+      const data = await res.json()
+      
+      if (data.success) {
         dispatch({ type: "status", status: "success" })
         setTimeout(() => confirmRef.current?.focus(), 0)
         return
       }
-      if (res.status === 409) {
+      
+      if (data.message === "User already exists") {
         dispatch({ type: "status", status: "exists" })
         setTimeout(() => confirmRef.current?.focus(), 0)
         return
       }
 
-      const data = await res.json().catch(() => ({}))
       dispatch({
         type: "status",
         status: "error",
