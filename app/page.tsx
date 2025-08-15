@@ -20,6 +20,9 @@ type Action =
   | { type: "field"; key: keyof Pick<State, "name" | "email" | "handle">; value: string }
   | { type: "status"; status: Status; message?: string }
 
+
+  // 201 created, 409 conflict
+
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "field":
